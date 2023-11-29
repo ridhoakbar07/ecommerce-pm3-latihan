@@ -18,7 +18,7 @@ function run(string $url, array $routes): void {
     $controllerName = $callback[0];
     $methodName = $callback[1];
     
-    include_once "controllers/$controllerName.php";
+    include_once "Controllers/$controllerName.php";
     
     if (class_exists($controllerName)) {
         
