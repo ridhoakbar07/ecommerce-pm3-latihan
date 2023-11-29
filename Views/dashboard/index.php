@@ -1,7 +1,7 @@
 <?php include_once 'layouts/_header.php'; ?>
 <!-- ini bagian toast notifikasi -->
 <?php include 'layouts/_toast.php'; ?>
-<div class="container-fluid z-0">
+<div class="container-fluid z-0 min-vh-100">
   <div class="row">
     <?php include_once 'layouts/_sidebar.php'; ?>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
