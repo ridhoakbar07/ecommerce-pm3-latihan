@@ -9,7 +9,7 @@ if (isset($_SESSION['flash_message'])) {
   $flashMessage = $_SESSION['flash_message'];
   unset($_SESSION['flash_message']);
 
-  $alertType = ($flashMessage['type'] === 'success') ? 'success' : 'danger';
+  $alertType = ($flashMessage['tipe'] === 'success') ? 'success' : 'danger';
   $messageText = $flashMessage['pesan'];
 } elseif (!empty($message)) {
   $alertType = ($message['tipe'] === 'success') ? 'success' : 'danger';
