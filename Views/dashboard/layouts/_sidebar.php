@@ -61,7 +61,7 @@
             </h6>
             <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
-                    <a class="nav-link align-items-center gap-2" href="?page=user">
+                    <a class="nav-link align-items-center gap-2" href="/dashboard/users">
                         <i class='bi bi-people me-1'></i> Users / Pengguna
                     </a>
                 </li>

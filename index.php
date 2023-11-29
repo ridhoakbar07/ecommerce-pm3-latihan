@@ -21,7 +21,8 @@ $routes = Routes::getRoutes();
     <meta name="generator" content="Ridho Akbar">
     <meta name="theme-color" content="#712cf9">
     <title>e-Commerce</title>
-    <link rel="icon" type="image/png" href="assets/images/logo/bootstrap-logo.svg">
+    <link rel="icon" type="image/png"
+        href="<?= $_SESSION['role_user'] === 1 ? "../../" : "" ?>assets/images/logo/bootstrap-logo.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -29,7 +30,7 @@ $routes = Routes::getRoutes();
 
     // load spesifik css untuk user = admin dan user biasa
     if (isset($_SESSION['role_user']) && $_SESSION['role_user'] === 1) {
-        echo '<link rel="stylesheet" href="assets/css/dashboard.css"/>';
+        echo '<link rel="stylesheet" href="../../assets/css/dashboard.css"/>';
     } else {
         echo '<link rel="stylesheet" href="assets/css/app.css"/>';
     }
@@ -115,7 +116,7 @@ $routes = Routes::getRoutes();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
         </script>
-    <script src="assets/js/color-modes.js"></script>
+    <script src="<?= $_SESSION['role_user'] === 1 ? "../../" : "" ?>assets/js/color-modes.js"></script>
 
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -124,8 +125,12 @@ $routes = Routes::getRoutes();
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var myToast = new bootstrap.Toast(document.querySelector('.toast'));
-            myToast.show();
+            var toastElement = document.querySelector('.toast');
+
+            if (toastElement !== null) {
+                var myToast = new bootstrap.Toast(toastElement);
+                myToast.show();
+            }
         });
     </script>
 </body>

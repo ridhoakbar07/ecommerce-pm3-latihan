@@ -7,6 +7,7 @@ class Routes {
            '/logout' => 'AuthController@logout',
            '/register' => 'AuthController@registrationForm',
            '/dashboard' => 'DashboardController@index',
+           '/dashboard/users' => 'DashboardController@user',
            '/verifylogin' => 'AuthController@verifyLogin',
            '/registerUser' => 'AuthController@registerUser',
        ];

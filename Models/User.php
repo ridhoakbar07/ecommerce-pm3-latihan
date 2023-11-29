@@ -8,7 +8,7 @@ class User extends Model
     private $email;
     private $password;
 
-    public function __construct($email, $password, $username = "")
+    public function __construct($email = "", $password = "", $username = "")
     {
         parent::__construct();
         $this->table = 'users';

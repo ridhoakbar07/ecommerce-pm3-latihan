@@ -16,12 +16,12 @@ class AuthController
         // Destroy the session
         session_destroy();
 
-        $data = [
-            'type' => 'success',
-            'message' => 'Logout Berhasil!',
+        $message = [
+            'tipe' => 'success',
+            'pesan' => 'Logout Berhasil!',
         ];
         // Redirect the user to the login page or any other desired page after logout
-        view("public/index", $data);
+        view("public/index", ["message" => $message]);
     }
 
     public function registrationForm()
@@ -37,7 +37,7 @@ class AuthController
             $_SESSION['role_user'] = $result['role'];
             $_SESSION['username'] = $result['username'];
             $message = [
-                'type' => 'success',
+                'tipe' => 'success',
                 'pesan' => "Login Berhasil! selamat datang <strong>". $result['username']."</strong>",
             ];
             $_SESSION['flash_message'] = $message;
@@ -51,17 +51,17 @@ class AuthController
         $user = new User($_POST['email'], $_POST['password'], $_POST['username']);
 
         if ($user->save()) {
-            $data = [
-                'type' => 'success',
-                'message' => 'Registrasi Berhasil! Silahkan login',
+            $message = [
+                'tipe' => 'success',
+                'pesan' => 'Registrasi Berhasil! Silahkan login',
             ];
-            view("public/login", $data);
+            view("public/login", ["message" => $message]);
         } else {
-            $data = [
+            $message = [
                 'type' => 'error',
                 'message' => 'Operasi Gagal! Periksa kembali inputan anda',
             ];
-            view("public/register", $data);
+            view("public/register", ["message" => $message]);
         }
     }
 }

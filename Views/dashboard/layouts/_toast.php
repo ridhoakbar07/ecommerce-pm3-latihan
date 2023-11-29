@@ -11,9 +11,9 @@ if (isset($_SESSION['flash_message'])) {
 
   $alertType = ($flashMessage['type'] === 'success') ? 'success' : 'danger';
   $messageText = $flashMessage['pesan'];
-} elseif (!empty($data)) {
-  $alertType = ($data['type'] === 'success') ? 'success' : 'danger';
-  $messageText = $data['message'];
+} elseif (!empty($message)) {
+  $alertType = ($message['tipe'] === 'success') ? 'success' : 'danger';
+  $messageText = $message['pesan'];
 }
 
 //tampilkan pesan jika, pesan tidak kosong
