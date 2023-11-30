@@ -6,15 +6,6 @@
         <form action="/verifylogin" method="POST">
             <img class="mb-4" src="assets/images/logo/bootstrap-logo.svg" alt="" width="72" height="57">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-            <?php
-            if (isset($message)) {
-                echo "
-                <div class='alert alert-warning' role='alert'>
-                    $message
-                </div>
-                ";
-            }
-            ?>
             <div class="form-floating">
                 <input type="email" class="form-control" id="floatingInput" name="email" placeholder="jhon@smith.com">
                 <label for="floatingInput">Email</label>

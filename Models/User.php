@@ -90,8 +90,7 @@ class User extends Model
             $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
             return $stmt->execute();
         } catch (PDOException $e) {
-            echo "Error:" . $e->getMessage();
-            return false;
+            return "Database Error :". $e->getMessage();
         }
     }
 

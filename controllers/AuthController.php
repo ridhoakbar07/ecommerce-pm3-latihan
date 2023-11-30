@@ -38,11 +38,17 @@ class AuthController
             $_SESSION['username'] = $result['username'];
             $message = [
                 'tipe' => 'success',
-                'pesan' => "Login Berhasil! selamat datang <strong>". $result['username']."</strong>",
+                'pesan' => "Login Berhasil! selamat datang <strong>" . $result['username'] . "</strong>",
             ];
             $_SESSION['flash_message'] = $message;
-            
+
             header('location:/');
+        } else {
+            $message = [
+                'tipe' => 'error',
+                'pesan' => 'Email dan Password tidak ditemukan',
+            ];
+            view("public/login", ["message" => $message]);
         }
     }
 
@@ -50,16 +56,20 @@ class AuthController
     {
         $user = new User($_POST['email'], $_POST['password'], $_POST['username']);
 
-        if ($user->save()) {
+        try {
+            if ($user->save()) {
+                $message = [
+                    'tipe' => 'success',
+                    'pesan' => 'Registrasi Berhasil! Silahkan login',
+                ];
+                view("public/login", ["message" => $message]);
+            } 
+        } catch (PDOException $e) {
+            // Handle exceptions thrown from UserModel's save method
+            $errorMessage = $e->getMessage();
             $message = [
-                'tipe' => 'success',
-                'pesan' => 'Registrasi Berhasil! Silahkan login',
-            ];
-            view("public/login", ["message" => $message]);
-        } else {
-            $message = [
-                'type' => 'error',
-                'message' => 'Operasi Gagal! Periksa kembali inputan anda',
+                'tipe' => 'error',
+                'pesan' => $errorMessage,
             ];
             view("public/register", ["message" => $message]);
         }
