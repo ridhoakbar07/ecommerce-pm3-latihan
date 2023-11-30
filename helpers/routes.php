@@ -10,6 +10,7 @@ class Routes {
            '/dashboard/users' => 'DashboardController@user',
            '/verifylogin' => 'AuthController@verifyLogin',
            '/registerUser' => 'AuthController@registerUser',
+           '/dashboard/produk' => 'DashboardController@produk'
        ];
    }
 }

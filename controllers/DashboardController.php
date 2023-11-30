@@ -20,5 +20,9 @@ class DashboardController
 
         view('dashboard/index', ['users' => $users, 'page' => 'user']);
     }
+
+    public function produk(){
+        view('dashboard/index', ['page' => 'produk']);
+    }
 }
 ?>
