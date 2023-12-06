@@ -4,11 +4,16 @@ require_once 'Models/User.php';
 class UserController
 {
 
+    private $userModel;
+
+    public function __construct(){
+        $this->userModel = new User();
+    }
+
     public function create($username, $email, $password)
     {
-        $user = new User($username, $email, $password);
 
-        if ($user->save()) {
+        if ($this->userModel->save($username, $email, $password)) {
             $_SESSION['flash_message'] = [
                 'type' => 'success', // or 'error'
                 'message' => 'Register user berhasil, silahkan login.',
@@ -41,34 +46,7 @@ class UserController
 
     public function getUsers()
     {
-        return $this->userModel->findAll();
-    }
-
-    public function verifyLogin($email, $password)
-    {
-        $user = new User($email, $password);
-        $result = $user->verifyLogin();
-        if ($result) {
-            $_SESSION['nama_user'] = $result['username'];
-            $_SESSION['role_user'] = $result['role'];
-            $_SESSION['flash_message'] = [
-                'type' => 'success', // or 'error'
-                'message' => 'Login Berhasil!',
-            ];
-            header('location: /');
-        }
-
-    }
-
-    public function logout()
-    {
-        unset($_SESSION['role_user']);
-        unset($_SESSION['nama_user']);
-        $_SESSION['flash_message'] = [
-            'type' => 'success', // or 'error'
-            'message' => 'Logout Berhasil!',
-        ];
-        header('location: /');
+        echo $this->userModel->findAll();
     }
 }
 

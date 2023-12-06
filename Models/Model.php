@@ -36,7 +36,7 @@ class Model implements CrudInterface
     {
         $query = "SELECT * FROM {$this->table}";
         $stmt = $this->conn->query($query);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
     public function update($id, $data)

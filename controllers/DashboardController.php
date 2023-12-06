@@ -16,7 +16,7 @@ class DashboardController
     {
         $user = new User();
 
-        $users = $user->findAll();
+        $users = json_decode($user->findAll(), true);
 
         view('dashboard/index', ['users' => $users, 'page' => 'user']);
     }

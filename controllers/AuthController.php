@@ -2,15 +2,12 @@
 require_once 'Models/User.php';
 require_once 'HomeController.php';
 
-class AuthController
-{
-    public function loginForm()
-    {
+class AuthController {
+    public function loginForm() {
         view("public/login");
     }
 
-    public function logout()
-    {
+    public function logout() {
         $_SESSION = array();
 
         // Destroy the session
@@ -24,21 +21,19 @@ class AuthController
         view("public/index", ["message" => $message]);
     }
 
-    public function registrationForm()
-    {
+    public function registrationForm() {
         view("public/register");
     }
 
-    public function verifyLogin()
-    {
-        $user = new User($_POST['email'], $_POST['password']);
-        $result = $user->verifyLogin();
-        if ($result) {
+    public function verifyLogin() {
+        $user = new User();
+        $result = $user->verifyLogin($_POST['email'], $_POST['password']);
+        if($result) {
             $_SESSION['role_user'] = $result['role'];
             $_SESSION['username'] = $result['username'];
             $message = [
                 'tipe' => 'success',
-                'pesan' => "Login Berhasil! selamat datang <strong>" . $result['username'] . "</strong>",
+                'pesan' => "Login Berhasil! selamat datang <strong>".$result['username']."</strong>",
             ];
             $_SESSION['flash_message'] = $message;
 
@@ -52,18 +47,16 @@ class AuthController
         }
     }
 
-    public function registerUser()
-    {
-        $user = new User($_POST['email'], $_POST['password'], $_POST['username']);
-
+    public function registerUser() {
+        $user = new User();
         try {
-            if ($user->save()) {
+            if($user->save($_POST['username'], $_POST['email'], $_POST['password'])) {
                 $message = [
                     'tipe' => 'success',
                     'pesan' => 'Registrasi Berhasil! Silahkan login',
                 ];
                 view("public/login", ["message" => $message]);
-            } 
+            }
         } catch (PDOException $e) {
             // Handle exceptions thrown from UserModel's save method
             $errorMessage = $e->getMessage();
