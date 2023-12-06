@@ -4,7 +4,12 @@ include_once 'helpers/routes.php';
 include_once 'helpers/functions.php';
 $routes = Routes::getRoutes();
 
+if(strpos($_SERVER['REQUEST_URI'], '/api') !== false) {
+    run($_SERVER['REQUEST_URI'], $routes);
+    return; // Stop further execution to prevent HTML rendering for API requests
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 
@@ -31,9 +36,8 @@ $routes = Routes::getRoutes();
     }
     ?>
     <!-- Your Meta Tags, Title, Stylesheets, and Other Head Content -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -58,10 +62,8 @@ $routes = Routes::getRoutes();
     </svg>
 
     <?php
-    // Run routing logic
     run($_SERVER['REQUEST_URI'], $routes);
     ?>
-
     <!-- ini bagian tema gelap, terang dan auto -->
     <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
         <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"

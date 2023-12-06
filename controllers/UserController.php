@@ -1,51 +1,72 @@
 <?php
 require_once 'Models/User.php';
 
-class UserController
-{
+class UserController {
 
     private $userModel;
 
-    public function __construct(){
+    public function __construct() {
         $this->userModel = new User();
     }
 
-    public function create($username, $email, $password)
-    {
+    public function create() {
+        $user = new User();
+        try {
+            if($user->save($_POST['username'], $_POST['email'], $_POST['password'], $_POST['role'])) {
+                $message = [
+                    'tipe' => 'success',
+                    'pesan' => 'Tambah data berhasil',
+                ];
 
-        if ($this->userModel->save($username, $email, $password)) {
-            $_SESSION['flash_message'] = [
-                'type' => 'success', // or 'error'
-                'message' => 'Register user berhasil, silahkan login.',
+                $_SESSION['flash_message'] = $message;
+                header('Location: /dashboard/users');
+            }
+        } catch (PDOException $e) {
+            // Handle exceptions thrown from UserModel's save method
+            $errorMessage = $e->getMessage();
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $errorMessage,
             ];
-            header('Location: /login');
-            exit;
-        } else {
-            header('Location: /register');
-            exit;
-            // Handle the case where user creation failed
-            // This block will handle the case where any required field is missing or empty
+            $_SESSION['flash_message'] = $message;
+            header('Location: /dashboard/users');
         }
-
     }
 
-    public function updateUser($id, $nama, $email, $password)
-    {
+    public function updateUser($id, $nama, $email, $password) {
         return $this->userModel->update($id, ['nama' => $nama, 'password' => $password]);
     }
 
-    public function deleteUser($id)
-    {
-        return $this->userModel->delete($id);
+    public function delete($id) {
+        $user = new User();
+        try {
+            if($user->destroy($id)) {
+                $message = [
+                    'tipe' => 'success',
+                    'pesan' => 'Hapus data berhasil',
+                ];
+
+                $_SESSION['flash_message'] = $message;
+                header('Location: /dashboard/users');
+            }
+        } catch (PDOException $e) {
+            // Handle exceptions thrown from UserModel's save method
+            $errorMessage = $e->getMessage();
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $errorMessage,
+            ];
+            $_SESSION['flash_message'] = $message;
+            header('Location: /dashboard/users');
+        }
     }
 
-    public function getUserById($id)
-    {
+    public function getUserById($id) {
         return $this->userModel->findById($id);
     }
 
-    public function getUsers()
-    {
+    public function getUsers() {
+        header('Content-Type: application/json');
         echo $this->userModel->findAll();
     }
 }

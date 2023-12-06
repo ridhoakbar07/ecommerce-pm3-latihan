@@ -4,7 +4,7 @@ interface CrudInterface{
     public function findById($id);
     public function findAll();
     public function update ($id, $data);
-    public function delete ($id);
+    public function destroy ($id);
 }
 
 ?>

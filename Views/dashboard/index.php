@@ -1,3 +1,10 @@
+<?php
+if(!isset($_SESSION['role_user']) || $_SESSION['role_user'] !== 1) {
+  echo "403 - Access Forbidden";
+  exit;
+}
+?>
+
 <?php include_once 'layouts/_header.php'; ?>
 <!-- ini bagian toast notifikasi -->
 <?php include 'layouts/_toast.php'; ?>
@@ -13,7 +20,7 @@
       ];
 
       // Check if 'page' parameter is set and its value exists in the mapping array
-      if (isset($page) && isset($pageMapping[$page])) {
+      if(isset($page) && isset($pageMapping[$page])) {
         include_once $pageMapping[$page];
       } else {
         echo '

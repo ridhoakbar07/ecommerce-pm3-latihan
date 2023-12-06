@@ -53,7 +53,7 @@ class Model implements CrudInterface
         return $stmt->execute($data);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $query = "DELETE FROM {$this->table} WHERE id = :id";
         $stmt = $this->conn->prepare($query);

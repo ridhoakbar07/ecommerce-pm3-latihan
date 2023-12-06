@@ -10,15 +10,16 @@ class User extends Model
     }
 
     //method - method lainnya
-    public function save($username, $email, $password)
+    public function save($username, $email, $password, $role)
     {
         try {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO {$this->table} (username, email, password) VALUES (:username, :email, :password)";
+            $query = "INSERT INTO {$this->table} (username, email, password, role) VALUES (:username, :email, :password, :role)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+            $stmt->bindParam(':role', $role, PDO::PARAM_STR);
             return $stmt->execute();
         } catch (PDOException $e) {
             return "Database Error :". $e->getMessage();
