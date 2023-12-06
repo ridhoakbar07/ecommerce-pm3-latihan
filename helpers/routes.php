@@ -5,14 +5,13 @@ class Routes {
             '/' => 'HomeController@index',
             '/login' => 'AuthController@loginForm',
             '/logout' => 'AuthController@logout',
+            '/verifylogin' => 'AuthController@verifyLogin',
+            '/registerUser' => 'AuthController@registerUser',
             '/register' => 'AuthController@registrationForm',
             '/dashboard' => 'DashboardController@index',
             '/dashboard/users' => 'DashboardController@user',
             '/dashboard/user/add' => 'UserController@create',
             '/dashboard/user/delete/(\d+)' => 'UserController@delete',
-            '/verifylogin' => 'AuthController@verifyLogin',
-            '/registerUser' => 'AuthController@registerUser',
-            '/dashboard/produk' => 'DashboardController@produk',
 
             //route untuk API disini
             '/api/users' => 'ApiController@getUsers',
