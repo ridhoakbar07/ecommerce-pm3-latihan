@@ -1,9 +1,3 @@
-<script>
-    if (window.location.search) {
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
-</script>
-
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -48,9 +42,10 @@
 </div>
 <script>
     $(document).ready(function () {
-        function callUserModal(user = { username: '', email: '', role: 0 }) {
+        function callUserModal(user = { id: '', username: '', email: '', role: 0 }) {
             $('#modalBodyContent').html(`
-                <form action="user/${user.id ? 'edit' : 'add'}" method="${user.id ? 'PUT' : 'POST'}">
+                <form action="user/${user.id ? 'update' : 'save'}" method="POST">
+                    <input type="hidden" name="id" value="${user.id}">
                     <div class="row mb-3">
                         <label for="username" class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-10">

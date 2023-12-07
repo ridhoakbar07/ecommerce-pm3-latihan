@@ -14,6 +14,14 @@ class DashboardController {
         view('dashboard/index', ['users' => $users, 'page' => 'user']);
     }
 
+    public function kategori() {
+        $kategori = new Kategori();
+
+        $kategoris = json_decode($kategori->findAll(), true);
+
+        view('dashboard/index', ['kategoris' => $kategoris, 'page' => 'kategori']);
+    }
+
     public function produk() {
         view('dashboard/index', ['page' => 'produk']);
     }

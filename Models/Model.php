@@ -14,14 +14,42 @@ class Model implements CrudInterface
         $this->conn = $koneksi->getPDO();
     }
 
-    public function create($data)
+    public function store($data)
     {
         $keys = implode(', ', array_keys($data));
         $values = ':' . implode(', :', array_keys($data));
 
         $query = "INSERT INTO {$this->table} ({$keys}) VALUES ({$values})";
         $stmt = $this->conn->prepare($query);
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(':' . $key, $value);
+        }
         return $stmt->execute($data);
+    }
+
+    public function edit($data)
+    {
+        $updateFields = '';
+        foreach ($data as $key => $value) {
+            $updateFields .= $key . '=:' . $key . ', ';
+        }
+        $updateFields = rtrim($updateFields, ', ');
+
+        $query = "UPDATE {$this->table} SET {$updateFields} WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(':' . $key, $value);
+        }
+        return $stmt->execute($data);
+    }
+
+    public function destroy($id)
+    {
+        $query = "DELETE FROM {$this->table} WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
 
     public function findById($id)
@@ -38,28 +66,5 @@ class Model implements CrudInterface
         $stmt = $this->conn->query($query);
         return json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
-
-    public function update($id, $data)
-    {
-        $updateFields = '';
-        foreach ($data as $key => $value) {
-            $updateFields .= $key . '=:' . $key . ', ';
-        }
-        $updateFields = rtrim($updateFields, ', ');
-
-        $query = "UPDATE {$this->table} SET {$updateFields} WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $data['id'] = $id;
-        return $stmt->execute($data);
-    }
-
-    public function destroy($id)
-    {
-        $query = "DELETE FROM {$this->table} WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
-    }
-
 }
 ?>

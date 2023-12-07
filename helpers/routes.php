@@ -10,8 +10,11 @@ class Routes {
             '/register' => 'AuthController@registrationForm',
             '/dashboard' => 'DashboardController@index',
             '/dashboard/users' => 'DashboardController@user',
-            '/dashboard/user/add' => 'UserController@create',
+            '/dashboard/user/save' => 'UserController@save',
+            '/dashboard/user/update' => 'UserController@update',
             '/dashboard/user/delete/(\d+)' => 'UserController@delete',
+
+            '/dashboard/kategori' => 'DashboardController@kategori',
 
             //route untuk API disini
             '/api/users' => 'ApiController@getUsers',
