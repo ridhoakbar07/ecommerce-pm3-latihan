@@ -40,7 +40,7 @@ function run(string $url, array $routes): void {
     }
 
     if (!$matchedRoute) {
-        // Handle 404 - Route not found
+        view("404");
     }
 }
 
