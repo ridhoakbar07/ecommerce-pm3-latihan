@@ -35,7 +35,7 @@ class KategoriController
         }
 
         $_SESSION['flash_message'] = $message;
-        header('Location: /dashboard/kategori');
+        header('Location: /dashboard/kategoris');
     }
 
     public function update()
@@ -55,7 +55,7 @@ class KategoriController
         }
 
         $_SESSION['flash_message'] = $message;
-        header('Location: /dashboard/kategori');
+        header('Location: /dashboard/kategoris');
     }
 
     public function delete($id)
@@ -75,7 +75,7 @@ class KategoriController
         }
 
         $_SESSION['flash_message'] = $message;
-        header('Location: /dashboard/kategori');
+        header('Location: /dashboard/kategoris');
     }
 }
 

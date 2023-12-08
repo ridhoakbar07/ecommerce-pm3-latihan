@@ -9,17 +9,17 @@
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link align-items-center gap-2 active" aria-current="page" href="?page=dashboard">
+                    <a class="nav-link align-items-center gap-2 active" aria-current="page" href="/">
                         <i class='bi bi-house-fill me-1'></i> Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link align-items-center gap-2" href="/dashboard/kategori">
+                    <a class="nav-link align-items-center gap-2" href="/dashboard/kategoris">
                         <i class='bi bi-list me-1'></i> Kategori
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link align-items-center gap-2" href="?page=produk">
+                    <a class="nav-link align-items-center gap-2" href="/dashboard/produks">
                         <i class='bi bi-cart me-1'></i> Produk
                     </a>
                 </li>

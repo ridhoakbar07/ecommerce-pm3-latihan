@@ -1,31 +1,83 @@
 <?php
+require_once 'Models/Produk.php';
+require_once 'Models/Kategori.php';
 
-require_once('../Models/ProdukModel.php');
-    class ProdukController{
-        private $ProdukModel;
+class ProdukController
+{
 
-        public function __construct() {
-            $this->ProdukModel = new ProdukModel();
-        }
-
-        public function createProduk($data){
-        return $this->ProdukModel->create($data);
-        }
-
-        public function getUsers(){
-            return $this->ProdukModel->findAll();
-        }
-
-        public function getById($id){
-            return $this->ProdukModel->findById($id);
-        }
-
-        public function updateProduk($id, $data){
-            return $this->ProdukModel->update($id, $data);
-        }
-
-        public function deleteProduk($id){
-            return $this->ProdukModel->delete($id);
-        }
+    private $produkModel;
+    
+    public function __construct()
+    {
+        $this->produkModel = new Produk();
     }
+
+    public function index()
+    {
+        $produks = json_decode($this->produkModel->findAll(), true);
+
+        view('dashboard/index', ['produks' => $produks, 'page' => 'produk']);
+    }
+
+    public function save()
+    {
+        $result = $this->produkModel->store($_POST);
+        if ($result === true) {
+            $message = [
+                'tipe' => 'success',
+                'pesan' => 'Data berhasil disimpan!',
+            ];
+        } else {
+            // Handle exceptions thrown from produkModel's save method
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $result,
+            ];
+        }
+
+        $_SESSION['flash_message'] = $message;
+        header('Location: /dashboard/produks');
+    }
+
+    public function update()
+    {
+        $result = $this->produkModel->edit($_POST);
+        if ($result === true) {
+            $message = [
+                'tipe' => 'success',
+                'pesan' => 'Data berhasil diperbarui!',
+            ];
+        } else {
+            // Handle exceptions thrown from produkModel's save method
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $result,
+            ];
+        }
+
+        $_SESSION['flash_message'] = $message;
+        header('Location: /dashboard/produks');
+    }
+
+    public function delete($id)
+    {
+        $result = $this->produkModel->destroy($id);
+        if ($result === true) {
+            $message = [
+                'tipe' => 'success',
+                'pesan' => 'Data berhasil dihapus!',
+            ];
+        } else {
+            // Handle exceptions thrown from produkModel's save method
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $result,
+            ];
+        }
+
+        $_SESSION['flash_message'] = $message;
+        header('Location: /dashboard/produks');
+    }
+}
+
 ?>

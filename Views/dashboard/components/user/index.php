@@ -47,26 +47,26 @@
                 <form action="user/${user.id ? 'update' : 'save'}" method="POST">
                     <input type="hidden" name="id" value="${user.id}">
                     <div class="row mb-3">
-                        <label for="username" class="col-sm-2 col-form-label">Username</label>
-                        <div class="col-sm-10">
+                        <label for="username" class="col-sm-3 col-form-label">Username</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="${user.username}">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="email" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
+                        <label for="email" class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
                             <input type="email" class="form-control" id="email" name="email" placeholder="email@example.com" value="${user.email}">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="password" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
+                        <label for="password" class="col-sm-3 col-form-label">Password</label>
+                        <div class="col-sm-9">
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                         </div>
                     </div>
                     <fieldset class="row mb-3">
-                        <legend class="col-form-label col-sm-2 pt-0">Roles</legend>
-                        <div class="col-sm-10">
+                        <legend class="col-form-label col-sm-3 pt-0">Roles</legend>
+                        <div class="col-sm-9">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="role" id="adminRadio" value="1" ${user.role == 1 ? 'checked' : ''}>
                                 <label class="form-check-label" for="adminRadio">Admin</label>

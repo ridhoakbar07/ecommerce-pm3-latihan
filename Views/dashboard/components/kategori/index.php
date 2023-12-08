@@ -45,8 +45,8 @@
                 <form action="kategori/${kategori.id ? 'update' : 'save'}" method="POST">
                     <input type="hidden" name="id" value="${kategori.id}">
                     <div class="row mb-3">
-                        <label for="nama_kategori" class="col-sm-2 col-form-label">Nama Kategori</label>
-                        <div class="col-sm-10">
+                        <label for="nama_kategori" class="col-sm-3 col-form-label">Nama Kategori</label>
+                        <div class="col-sm-9">
                             <input type="text" class="form-control" id="nama_kategori" name="nama_kategori" placeholder="Nama Kategori" value="${kategori.nama_kategori}">
                         </div>
                     </div>

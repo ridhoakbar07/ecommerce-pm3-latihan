@@ -17,14 +17,21 @@ class Routes {
             '/dashboard/user/delete/(\d+)' => 'UserController@delete',
 
             //Dashboard Kategori
-            '/dashboard/kategori' => 'KategoriController@index',
+            '/dashboard/kategoris' => 'KategoriController@index',
             '/dashboard/kategori/save' => 'KategoriController@save',
             '/dashboard/kategori/update' => 'KategoriController@update',
             '/dashboard/kategori/delete/(\d+)' => 'KategoriController@delete',
 
+            //Dashboard Produk
+            '/dashboard/produks' => 'ProdukController@index',
+            '/dashboard/produk/save' => 'ProdukController@save',
+            '/dashboard/produk/update' => 'ProdukController@update',
+            '/dashboard/produk/delete/(\d+)' => 'ProdukController@delete',
+
             //route untuk API disini
             '/api/users' => 'ApiController@getUsers',
             '/api/kategoris' => 'ApiController@getKategoris',
+            '/api/produks' => 'ApiController@getProduks',
         ];
     }
 }

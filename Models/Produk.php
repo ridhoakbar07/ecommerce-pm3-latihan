@@ -1,11 +1,12 @@
 <?php
 require_once('Model.php');
 
-class ProdukModel extends Model
+class Produk extends Model
 {
 
     public function __construct()
     {
+        parent::__construct();
         $this->table = 'produk';
     }
 }
