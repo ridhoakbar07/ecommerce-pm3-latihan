@@ -1,5 +1,6 @@
 <?php
 require_once 'Models/User.php';
+require_once 'Models/Kategori.php';
 header('Content-Type: application/json');
 
 if(!isset($_SESSION['role_user']) || $_SESSION['role_user'] !== 1) {
@@ -11,13 +12,19 @@ if(!isset($_SESSION['role_user']) || $_SESSION['role_user'] !== 1) {
 class ApiController {
 
     private $userModel;
+    private $kategoriModel;
 
     public function __construct() {
         $this->userModel = new User();
+        $this->kategoriModel = new Kategori();
     }
 
     public function getUsers() {
         echo $this->userModel->findAll();
+    }
+
+    public function getKategoris() {
+        echo $this->kategoriModel->findAll();
     }
 }
 

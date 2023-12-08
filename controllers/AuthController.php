@@ -27,7 +27,11 @@ class AuthController
             'tipe' => 'success',
             'pesan' => 'Logout Berhasil!',
         ];
-        view("public/index", ["message" => $message]);
+
+        session_start();
+        $_SESSION['flash_message'] = $message;
+
+        header('location:/');
     }
 
     public function registrationForm()

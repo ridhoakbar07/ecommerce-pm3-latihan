@@ -14,7 +14,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link align-items-center gap-2" href="?page=kategori">
+                    <a class="nav-link align-items-center gap-2" href="/dashboard/kategori">
                         <i class='bi bi-list me-1'></i> Kategori
                     </a>
                 </li>

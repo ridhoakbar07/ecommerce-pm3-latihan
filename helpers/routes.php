@@ -24,7 +24,7 @@ class Routes {
 
             //route untuk API disini
             '/api/users' => 'ApiController@getUsers',
-            '/api/kategori' => 'ApiController@getKategoris',
+            '/api/kategoris' => 'ApiController@getKategoris',
         ];
     }
 }
