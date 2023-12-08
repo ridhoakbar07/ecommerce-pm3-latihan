@@ -14,9 +14,9 @@ if(!isset($_SESSION['role_user']) || $_SESSION['role_user'] !== 1) {
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <?php
       $pageMapping = [
-        'produk' => 'components/produk/index.php',
-        'kategori' => 'components/kategori/index.php',
-        'user' => 'components/user/index.php'
+        'produk' => 'components/produk.php',
+        'kategori' => 'components/kategori.php',
+        'user' => 'components/user.php'
       ];
 
       // Check if 'page' parameter is set and its value exists in the mapping array
