@@ -1,71 +1,81 @@
 <?php
 require_once 'Models/Kategori.php';
 
-class KategoriController {
+class KategoriController
+{
 
     private $kategoriModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->kategoriModel = new Kategori();
     }
 
-    public function create() {
-        try {
-            if($this->kategoriModel->save($_POST['nama_kategori'])) {
-                $message = [
-                    'tipe' => 'success',
-                    'pesan' => 'Tambah data berhasil',
-                ];
+    public function index()
+    {
+        $kategoris = json_decode($this->kategoriModel->findAll(), true);
 
-                $_SESSION['flash_message'] = $message;
-                header('Location: /dashboard/kategori');
-            }
-        } catch (PDOException $e) {
-            $errorMessage = $e->getMessage();
+        view('dashboard/index', ['kategoris' => $kategoris, 'page' => 'kategori']);
+    }
+
+    public function save()
+    {
+        $result = $this->kategoriModel->store($_POST);
+        if ($result === true) {
+            $message = [
+                'tipe' => 'success',
+                'pesan' => 'Data berhasil disimpan!',
+            ];
+        } else {
+            // Handle exceptions thrown from kategoriModel's save method
             $message = [
                 'tipe' => 'error',
-                'pesan' => $errorMessage,
+                'pesan' => $result,
             ];
-            $_SESSION['flash_message'] = $message;
-            header('Location: /dashboard/kategori');
         }
+
+        $_SESSION['flash_message'] = $message;
+        header('Location: /dashboard/kategori');
     }
 
-    public function updateUser($id, $nama, $email, $password) {
-        return $this->userModel->update($id, ['nama' => $nama, 'password' => $password]);
-    }
-
-    public function delete($id) {
-        $user = new User();
-        try {
-            if($user->destroy($id)) {
-                $message = [
-                    'tipe' => 'success',
-                    'pesan' => 'Hapus data berhasil',
-                ];
-
-                $_SESSION['flash_message'] = $message;
-                header('Location: /dashboard/users');
-            }
-        } catch (PDOException $e) {
-            // Handle exceptions thrown from UserModel's save method
-            $errorMessage = $e->getMessage();
+    public function update()
+    {
+        $result = $this->kategoriModel->edit($_POST);
+        if ($result === true) {
+            $message = [
+                'tipe' => 'success',
+                'pesan' => 'Data berhasil diperbarui!',
+            ];
+        } else {
+            // Handle exceptions thrown from kategoriModel's save method
             $message = [
                 'tipe' => 'error',
-                'pesan' => $errorMessage,
+                'pesan' => $result,
             ];
-            $_SESSION['flash_message'] = $message;
-            header('Location: /dashboard/users');
         }
+
+        $_SESSION['flash_message'] = $message;
+        header('Location: /dashboard/kategori');
     }
 
-    public function getUserById($id) {
-        return $this->userModel->findById($id);
-    }
+    public function delete($id)
+    {
+        $result = $this->kategoriModel->destroy($id);
+        if ($result === true) {
+            $message = [
+                'tipe' => 'success',
+                'pesan' => 'Data berhasil dihapus!',
+            ];
+        } else {
+            // Handle exceptions thrown from kategoriModel's save method
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $result,
+            ];
+        }
 
-    public function getUsers() {
-        header('Content-Type: application/json');
-        echo $this->userModel->findAll();
+        $_SESSION['flash_message'] = $message;
+        header('Location: /dashboard/kategori');
     }
 }
 

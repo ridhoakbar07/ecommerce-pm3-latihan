@@ -9,15 +9,22 @@ class Routes {
             '/registerUser' => 'AuthController@registerUser',
             '/register' => 'AuthController@registrationForm',
             '/dashboard' => 'DashboardController@index',
-            '/dashboard/users' => 'DashboardController@user',
+            
+            //Dashboard User
+            '/dashboard/users' => 'UserController@index',
             '/dashboard/user/save' => 'UserController@save',
             '/dashboard/user/update' => 'UserController@update',
             '/dashboard/user/delete/(\d+)' => 'UserController@delete',
 
-            '/dashboard/kategori' => 'DashboardController@kategori',
+            //Dashboard Kategori
+            '/dashboard/kategori' => 'KategoriController@index',
+            '/dashboard/kategori/save' => 'KategoriController@save',
+            '/dashboard/kategori/update' => 'KategoriController@update',
+            '/dashboard/kategori/delete/(\d+)' => 'KategoriController@delete',
 
             //route untuk API disini
             '/api/users' => 'ApiController@getUsers',
+            '/api/kategori' => 'ApiController@getKategoris',
         ];
     }
 }

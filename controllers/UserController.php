@@ -11,54 +11,77 @@ class UserController
         $this->userModel = new User();
     }
 
+    public function index()
+    {
+        $users = json_decode($this->userModel->findAll(), true);
+
+        view('dashboard/index', ['users' => $users, 'page' => 'user']);
+    }
     public function save()
     {
-        if ($this->userModel->store($_POST)) {
+        $password = $_POST['password'];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $_POST['password'] = $hashedPassword;
+
+        $result = $this->userModel->store($_POST);
+        if ($result === true) {
             $message = [
                 'tipe' => 'success',
-                'pesan' => 'Tambah data berhasil',
+                'pesan' => 'Data berhasil disimpan!',
             ];
-
-            $_SESSION['flash_message'] = $message;
-            header('Location: /dashboard/users');
+        } else {
+            // Handle exceptions thrown from UserModel's save method
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $result,
+            ];
         }
-    }
 
+        $_SESSION['flash_message'] = $message;
+        header('Location: /dashboard/users');
+    }
     public function update()
     {
-        if ($this->userModel->edit($_POST)) {
+        $password = $_POST['password'];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $_POST['password'] = $hashedPassword;
+
+        $result = $this->userModel->edit($_POST);
+        if ($result === true) {
             $message = [
                 'tipe' => 'success',
-                'pesan' => 'Update data berhasil',
+                'pesan' => 'Data berhasil diperbarui!',
             ];
-
-            $_SESSION['flash_message'] = $message;
-            header('Location: /dashboard/users');
+        } else {
+            // Handle exceptions thrown from UserModel's save method
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $result,
+            ];
         }
+
+        $_SESSION['flash_message'] = $message;
+        header('Location: /dashboard/users');
     }
 
     public function delete($id)
     {
-        if ($this->userModel->destroy($id)) {
+        $result = $this->userModel->destroy($id);
+        if ($result === true) {
             $message = [
                 'tipe' => 'success',
-                'pesan' => 'Hapus data berhasil',
+                'pesan' => 'Data berhasil dihapus!',
             ];
-
-            $_SESSION['flash_message'] = $message;
-            header('Location: /dashboard/users');
+        } else {
+            // Handle exceptions thrown from UserModel's save method
+            $message = [
+                'tipe' => 'error',
+                'pesan' => $result,
+            ];
         }
-    }
 
-    public function getUserById($id)
-    {
-        return $this->userModel->findById($id);
-    }
-
-    public function getUsers()
-    {
-        header('Content-Type: application/json');
-        echo $this->userModel->findAll();
+        $_SESSION['flash_message'] = $message;
+        header('Location: /dashboard/users');
     }
 }
 

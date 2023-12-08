@@ -19,37 +19,52 @@ class Model implements CrudInterface
         $keys = implode(', ', array_keys($data));
         $values = ':' . implode(', :', array_keys($data));
 
-        $query = "INSERT INTO {$this->table} ({$keys}) VALUES ({$values})";
-        $stmt = $this->conn->prepare($query);
-        foreach ($data as $key => $value) {
-            $stmt->bindValue(':' . $key, $value);
+        try {
+            $query = "INSERT INTO {$this->table} ({$keys}) VALUES ({$values})";
+            $stmt = $this->conn->prepare($query);
+            foreach ($data as $key => $value) {
+                $stmt->bindValue(':' . $key, $value);
+            }
+            $stmt->execute($data);
+            return true;
+        } catch (PDOException $e) {
+            return $e->getMessage();
         }
-        return $stmt->execute($data);
     }
 
     public function edit($data)
     {
-        $updateFields = '';
-        foreach ($data as $key => $value) {
-            $updateFields .= $key . '=:' . $key . ', ';
-        }
-        $updateFields = rtrim($updateFields, ', ');
+        try {
+            $updateKolom = '';
+            foreach ($data as $key => $value) {
+                $updateKolom .= $key . '=:' . $key . ', ';
+            }
+            $updateKolom = rtrim($updateKolom, ', ');
 
-        $query = "UPDATE {$this->table} SET {$updateFields} WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        
-        foreach ($data as $key => $value) {
-            $stmt->bindValue(':' . $key, $value);
+            $query = "UPDATE {$this->table} SET {$updateKolom} WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+
+            foreach ($data as $key => $value) {
+                $stmt->bindValue(':' . $key, $value);
+            }
+            $stmt->execute($data);
+            return true;
+        } catch (PDOException $e) {
+            return $e->getMessage();
         }
-        return $stmt->execute($data);
     }
 
     public function destroy($id)
     {
-        $query = "DELETE FROM {$this->table} WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
+        try {
+            $query = "DELETE FROM {$this->table} WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
     }
 
     public function findById($id)
