@@ -22,6 +22,7 @@ class User extends Model
     public function verifyLogin($email, $password)
     {
         $user = $this->getUserByEmail($email);
+
         if ($user && password_verify($password, $user['password'])) {
             // Password matches
             return $user;

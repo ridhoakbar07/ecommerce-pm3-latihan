@@ -9,5 +9,10 @@ class HomeController
             view("public/index");
         }
     }
+
+    public function profile()
+    {
+        view("public/profile");
+    }
 }
 ?>

@@ -3,6 +3,7 @@ class Routes {
     public static function getRoutes(): array {
         return [
             '/' => 'HomeController@index',
+            '/profile' => 'HomeController@profile',
             '/login' => 'AuthController@loginForm',
             '/logout' => 'AuthController@logout',
             '/verifylogin' => 'AuthController@verifyLogin',

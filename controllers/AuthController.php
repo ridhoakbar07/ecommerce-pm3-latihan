@@ -45,6 +45,7 @@ class AuthController
         if ($result) {
             $_SESSION['role_user'] = $result['role'];
             $_SESSION['username'] = $result['username'];
+            $_SESSION['id_user'] = $result['id'];
             $message = [
                 'tipe' => 'success',
                 'pesan' => "Login Berhasil! selamat datang <strong>" . $result['username'] . "</strong>",

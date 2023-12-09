@@ -66,6 +66,7 @@
                                 <i class='bi bi-person-badge' style='font-size:18px'></i> " . $_SESSION['username'] . "
                             </a>
                             <ul class='dropdown-menu'>
+                            <li><a class='dropdown-item' href='/profile'><i class='bi bi-pencil-square' style='font-size:18px'></i> Edit Profil</a></li>
                                 <li><a class='dropdown-item' href='/logout'><i class='bi bi-arrow-left-circle' style='font-size:18px'></i> Sign out</a></li>
                             </ul>
                             </li>
