@@ -45,6 +45,24 @@
 </div>
 <script>
     $(document).ready(function () {
+        $.ajax({
+            url: '/api/kategoris',
+            type: 'GET',
+            success: function (response) {
+                const options = response.map((item, index) => `
+            <option value="${item.id}">${item.nama_kategori}</option>
+        `).join('');
+
+        console.log(options);
+                // Append options to select element
+                $('#kategori_select').append(options);
+
+            },
+            error: function (error) {
+                console.error('Error fetching categories:', error);
+            }
+        });
+        
         function callprodukModal(produk = { id: '', nama_produk: '', deskripsi: '', harga: 0, stock: 0, photo: '', kategori_id: 0 }) {
             $('#modalBodyContent').html(`
                 <form action="produk/${produk.id ? 'update' : 'save'}" method="POST">
@@ -80,9 +98,10 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="stock" class="col-sm-3 col-form-label">Kategori</label>
+                        <label for="kategori_select" class="col-sm-3 col-form-label">Kategori</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control" id="stock" name="stock" value="${produk.kategori_id}">
+                        <select class="form-select" id="kategori_select" name="kategori_id" aria-label="Default select example">
+                        </select>
                         </div>
                     </div>
                     <hr/>
@@ -142,4 +161,5 @@
             }
         });
     });
+
 </script>
