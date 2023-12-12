@@ -87,7 +87,7 @@
             type: 'GET',
             success: function (response) {
                 let title = button.hasClass('kategori-delete') ? 'Hapus' : response.id ? 'Edit' : 'Tambah';
-                let formAction = "/dashboard/<?= $page ?>/" + button.hasClass('kategori-delete') ? `delete/${response.id}` : response.id ? 'update' : 'save';
+                let formAction = button.hasClass('kategori-delete') ? `delete/${response.id}` : response.id ? 'update' : 'save';
                 $('#modal-title').text(title);
 
                 if (button.hasClass('kategori-delete')) {
@@ -98,7 +98,7 @@
                     $('#nama_kategori').val(response['nama_kategori'] || '');
                 }
 
-                $('form').attr('action', formAction);
+                $('form').attr('action', "/dashboard/<?= $page ?>/" + formAction);
                 $('button[type="submit"]').removeClass('invisible');
                 $('button[type="submit"]').text(title);
             }
