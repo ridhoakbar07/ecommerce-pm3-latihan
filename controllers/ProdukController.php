@@ -14,7 +14,7 @@ class ProdukController
 
     public function index()
     {
-        $produks = json_decode($this->produkModel->findAll(), true);
+        $produks = $this->produkModel->findAll();
 
         view('dashboard/index', ['produks' => $produks, 'page' => 'produk']);
     }

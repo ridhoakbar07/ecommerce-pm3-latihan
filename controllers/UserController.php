@@ -13,7 +13,7 @@ class UserController
 
     public function index()
     {
-        $users = json_decode($this->userModel->findAll(), true);
+        $users = $this->userModel->findAll();
 
         view('dashboard/index', ['users' => $users, 'page' => 'user']);
     }

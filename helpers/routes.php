@@ -33,6 +33,7 @@ class Routes {
             '/api/users' => 'ApiController@getUsers',
             '/api/kategoris' => 'ApiController@getKategoris',
             '/api/produks' => 'ApiController@getProduks',
+            '/api/kategori/(\d+)' => 'ApiController@getKategoriById',
         ];
     }
 }

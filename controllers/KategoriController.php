@@ -13,7 +13,7 @@ class KategoriController
 
     public function index()
     {
-        $kategoris = json_decode($this->kategoriModel->findAll(), true);
+        $kategoris = $this->kategoriModel->findAll();
 
         view('dashboard/index', ['kategoris' => $kategoris, 'page' => 'kategori']);
     }
