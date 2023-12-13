@@ -24,9 +24,11 @@
                             Kategori Produk
                         </a>
                         <ul class='dropdown-menu'>
-                            <li><a class='dropdown-item' href='#'>Kategori 1</a></li>
-                            <li><a class='dropdown-item' href='#'>Kategori 2</a></li>
-                            <li><a class='dropdown-item' href='#'>Kategori 3</a></li>
+                            <?php foreach ($kategoris as $kategori) { ?>
+                                <li><a class='dropdown-item' href='#'>
+                                        <?= $kategori['nama_kategori'] ?>
+                                    </a></li>
+                            <?php } ?>
                         </ul>
                     </li>
                     <li class='nav-item'>

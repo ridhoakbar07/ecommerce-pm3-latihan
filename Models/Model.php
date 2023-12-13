@@ -50,7 +50,7 @@ class Model implements CrudInterface
             $stmt->execute($data);
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return $e;
         }
     }
 
@@ -63,7 +63,7 @@ class Model implements CrudInterface
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return $e;
         }
     }
 

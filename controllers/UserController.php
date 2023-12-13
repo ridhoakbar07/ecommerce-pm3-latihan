@@ -13,9 +13,7 @@ class UserController
 
     public function index()
     {
-        $users = $this->userModel->findAll();
-
-        view('dashboard/index', ['users' => $users, 'page' => 'user']);
+        view('dashboard/index', ['page' => 'user']);
     }
     public function save()
     {
@@ -30,7 +28,6 @@ class UserController
                 'pesan' => 'Data berhasil disimpan!',
             ];
         } else {
-            // Handle exceptions thrown from UserModel's save method
             $message = [
                 'tipe' => 'error',
                 'pesan' => $result->errorInfo['2'],
@@ -53,10 +50,9 @@ class UserController
                 'pesan' => 'Data berhasil diperbarui!',
             ];
         } else {
-            // Handle exceptions thrown from UserModel's save method
             $message = [
                 'tipe' => 'error',
-                'pesan' => $result,
+                'pesan' => $result->errorInfo['2'],
             ];
         }
 
@@ -73,10 +69,9 @@ class UserController
                 'pesan' => 'Data berhasil dihapus!',
             ];
         } else {
-            // Handle exceptions thrown from UserModel's save method
             $message = [
                 'tipe' => 'error',
-                'pesan' => $result,
+                'pesan' => $result->errorInfo['2'],
             ];
         }
 

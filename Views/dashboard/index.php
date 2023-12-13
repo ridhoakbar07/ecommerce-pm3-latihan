@@ -8,10 +8,10 @@ if(!isset($_SESSION['role_user']) || $_SESSION['role_user'] !== 1) {
 <?php include_once 'layouts/_header.php'; ?>
 <!-- ini bagian toast notifikasi -->
 <?php include 'layouts/_toast.php'; ?>
-<div class="container-fluid z-0 min-vh-100">
+<div class="container-fluid z-0">
   <div class="row">
     <?php include_once 'layouts/_sidebar.php'; ?>
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 vh-100">
       <?php
       $pageMapping = [
         'produk' => 'components/produk.php',

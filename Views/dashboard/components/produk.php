@@ -1,6 +1,6 @@
 <!-- Bootstrap Modal -->
 <div class="modal fade" id="produkModal" tabindex="-1" aria-labelledby="produkModalLabel" aria-hidden="true">
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" id="modal-form">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -67,9 +67,16 @@
 </div>
 
 <div class="container-fluid">
-    <div class="float-end m-2">
-        <button type='button' class='btn btn-sm btn-success' data-bs-toggle='modal' data-bs-target='#produkModal'><i
-                class='bi bi-plus'></i>Tambah Data</button>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+        <button type='button' class='btn btn-sm btn-success mb-2' data-bs-toggle='modal'
+            data-bs-target='#produkModal'><i class='bi bi-plus'></i>Tambah Data</button>
+        <form id="formCari">
+            <div class="input-group input-group-sm mb-2">
+                <input type="text" class="form-control border border-primary" placeholder="Masukkan Nama Produk"
+                    aria-label="Nama Produk" aria-describedby="produk-cari" id="keywordCari">
+                <span class="input-group-text border border-primary">Cari</span>
+            </div>
+        </form>
     </div>
     <div class="table-responsive-sm">
         <table class="table" id="table_produk">
@@ -92,39 +99,54 @@
 </div>
 <script>
     //saat dokumen ready, tambahkan data dari produk ke <tbody> /tabel body
-    $(document).ready(function () {
-        $.ajax({
-            url: '/api/produks',
-            type: 'GET',
-            success: function (response) {
-                const tbody = response.map((produk, index) => `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${produk.nama_produk}</td>
-                <td>${produk.deskripsi}</td>
-                <td>${produk.harga}</td>
-                <td>${produk.stock}</td>
-                <td>foto</td>
-                <td>${produk.kategori_id}</td>
-                <td>
-                    <button type='button' class='btn btn-sm btn-warning' data-bs-toggle='modal' data-bs-target='#produkModal' data-bs-id='${produk.id}'><i class='bi bi-pencil-square'></i>Edit</button>
-                    <button type='button' class='btn btn-sm btn-danger delete' data-bs-toggle='modal' data-bs-target='#produkModal' data-bs-id='${produk.id}'><i class='bi bi-trash'></i>Hapus</a>
-                </td>
-            </tr>
-        `).join('');
-                $('#table_produk tbody').append(tbody);
-            }
+    $(document).ready(() => {
+        const setTabelData = (url = null) => {
+            $.ajax({
+                url: url ? url : '/api/produks',
+                type: 'GET',
+                success: function (response) {
+                    const tbody = response.map((produk, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${produk.nama_produk}</td>
+                            <td>${produk.deskripsi}</td>
+                            <td>${produk.harga}</td>
+                            <td>${produk.stock}</td>
+                            <td><img src="${produk.foto}" alt="No_Image" width="64" height="64"/></td>
+                            <td>${produk.nama_kategori}</td>
+                            <td>
+                                <button type='button' class='btn btn-sm btn-warning' data-bs-toggle='modal' data-bs-target='#produkModal' data-bs-id='${produk.id}'><i class='bi bi-pencil-square'></i>Edit</button>
+                                <button type='button' class='btn btn-sm btn-danger delete' data-bs-toggle='modal' data-bs-target='#produkModal' data-bs-id='${produk.id}'><i class='bi bi-trash'></i>Hapus</a>
+                            </td>
+                        </tr>
+                    `).join('');
+                    $('#table_produk tbody').append(tbody);
+                }
+            });
+        }
+
+        //init tabel data untuk pertama kali dokumen di load
+        setTabelData();
+
+        // ini javascript bagian form cari jika disubmit
+        $('#formCari').submit((event) => {
+            event.preventDefault();
+            const keywordCari = $('#keywordCari').val();
+            const url = `/api/produk/cari/${keywordCari}`;
+            //kosongkan tabel 
+            $('#table_produk tbody').html('');
+            setTabelData(url);
         });
+
     });
 
+    //ini javascript bagian modal
     const modalBody = $('.modal-body').html();
 
-    //saat userModal muncul
     $('#produkModal').on('shown.bs.modal', function (event) {
         const button = $(event.relatedTarget);
         const id = button.data('bs-id');
 
-        //ambil data kategori berdasarkan id, lalu set judul modal, dan bagian isi modalnya
         $.ajax({
             url: '/api/produk/' + id,
             type: 'GET',
@@ -144,7 +166,6 @@
                     $('#harga').val(produk.harga || '');
                     $('#stock').val(produk.stock || '');
 
-                    //set select option kategori untuk produk
                     $.ajax({
                         url: '/api/kategoris',
                         type: 'GET',
@@ -160,7 +181,7 @@
                     });
                 }
 
-                $('form').attr('action', "/dashboard/<?= $page ?>/" + formAction);
+                $('form#modal-form').attr('action', "/dashboard/<?= $page ?>/" + formAction);
                 $('button[type="submit"]').removeClass('invisible');
                 $('button[type="submit"]').text(title);
             }

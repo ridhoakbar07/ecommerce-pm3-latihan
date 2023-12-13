@@ -14,63 +14,72 @@ class ProdukController
 
     public function index()
     {
-        $produks = $this->produkModel->findAll();
-
-        view('dashboard/index', ['produks' => $produks, 'page' => 'produk']);
+        view('dashboard/index', ['page' => 'produk']);
     }
 
     public function save()
     {
-        $foto = isset($_FILES['foto']) ? $_FILES['foto'] : null;
-        unset($_FILES);
+        $foto = $_FILES['foto'] ?? null;
 
-        // cek jika foto lebih dari 200kb
-        if ($foto['size'] > 200 * 1024) {
+        if ($foto && $foto['size'] > 300 * 1024) {
             $message = [
                 'tipe' => 'error',
-                'pesan' => 'Kesalahan : Ukuran Foto Maksimal 200kb',
+                'pesan' => 'Kesalahan : Ukuran Foto Maksimal 300kb',
             ];
-            $_SESSION['flash_message'] = $message;
-            header('Location: /dashboard/produks');
-            exit;
-        }
-
-        $result = $this->produkModel->store($_POST);
-
-        if ($result === true) {
-            $message = [
-                'tipe' => 'success',
-                'pesan' => 'Data berhasil disimpan!',
-            ];;
-            $this->produkModel->uploadfoto($this->produkModel->getConn()->lastInsertId(), $foto);
         } else {
-            // Pesan error diambil dari PDO Exception pada Model yang menangani
-            $message = [
-                'tipe' => 'error',
-                'pesan' => $result->errorInfo['2'],
-            ];
+            $result = $this->produkModel->store($_POST);
+
+            if ($result === true) {
+                $message = [
+                    'tipe' => 'success',
+                    'pesan' => 'Data berhasil disimpan!',
+                ];
+
+                if ($foto) {
+                    $this->produkModel->uploadfoto($_POST['id'], $foto);
+                }
+            } else {
+                $message = [
+                    'tipe' => 'error',
+                    'pesan' => $result->errorInfo['2'],
+                ];
+            }
         }
-        $_SESSION['flash_message'] = $message;
+
+        $_SESSION['flash_message'] = $message ?? null;
         header('Location: /dashboard/produks');
     }
 
     public function update()
     {
-        $result = $this->produkModel->edit($_POST);
-        if ($result === true) {
-            $message = [
-                'tipe' => 'success',
-                'pesan' => 'Data berhasil diperbarui!',
-            ];
-        } else {
-            // Handle exceptions thrown from produkModel's save method
+        $foto = $_FILES['foto'] ?? null;
+
+        if ($foto && $foto['size'] > 300 * 1024) {
             $message = [
                 'tipe' => 'error',
-                'pesan' => $result,
+                'pesan' => 'Kesalahan : Ukuran Foto Maksimal 300kb',
             ];
+        } else {
+            $result = $this->produkModel->edit($_POST);
+
+            if ($result === true) {
+                $message = [
+                    'tipe' => 'success',
+                    'pesan' => 'Data berhasil diubah!',
+                ];
+
+                if ($foto) {
+                    $this->produkModel->uploadfoto($_POST['id'], $foto);
+                }
+            } else {
+                $message = [
+                    'tipe' => 'error',
+                    'pesan' => $result->errorInfo['2'],
+                ];
+            }
         }
 
-        $_SESSION['flash_message'] = $message;
+        $_SESSION['flash_message'] = $message ?? null;
         header('Location: /dashboard/produks');
     }
 
@@ -83,16 +92,17 @@ class ProdukController
                 'pesan' => 'Data berhasil dihapus!',
             ];
         } else {
-            // Handle exceptions thrown from produkModel's save method
+            // Pesan error diambil dari PDO Exception pada Model yang menangani
             $message = [
                 'tipe' => 'error',
-                'pesan' => $result,
+                'pesan' => $result->errorInfo['2'],
             ];
         }
 
         $_SESSION['flash_message'] = $message;
         header('Location: /dashboard/produks');
     }
+
 }
 
 ?>

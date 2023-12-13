@@ -13,9 +13,7 @@ class KategoriController
 
     public function index()
     {
-        $kategoris = $this->kategoriModel->findAll();
-
-        view('dashboard/index', ['kategoris' => $kategoris, 'page' => 'kategori']);
+        view('dashboard/index', ['page' => 'kategori']);
     }
 
     public function save()
@@ -28,7 +26,6 @@ class KategoriController
                 'pesan' => 'Data berhasil disimpan!',
             ];
         } else {
-            // Handle exceptions thrown from kategoriModel's save method
             $message = [
                 'tipe' => 'error',
                 'pesan' => $result->errorInfo['2'],
@@ -48,10 +45,9 @@ class KategoriController
                 'pesan' => 'Data berhasil diperbarui!',
             ];
         } else {
-            // Handle exceptions thrown from kategoriModel's save method
             $message = [
                 'tipe' => 'error',
-                'pesan' => $result,
+                'pesan' => $result->errorInfo['2'],
             ];
         }
 
@@ -68,10 +64,9 @@ class KategoriController
                 'pesan' => 'Data berhasil dihapus!',
             ];
         } else {
-            // Handle exceptions thrown from kategoriModel's save method
             $message = [
                 'tipe' => 'error',
-                'pesan' => $result,
+                'pesan' => $result->errorInfo['2'],
             ];
         }
 

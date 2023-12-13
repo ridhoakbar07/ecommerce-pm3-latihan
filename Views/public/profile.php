@@ -5,8 +5,8 @@
 <!-- ini bagian toast notifikasi -->
 <?php include 'layouts/_toast.php'; ?>
 
-<div class="container">
-    <div class="offset-2 col-8 offset-2">
+<div class="container p-5 mb-5">
+    <div class="col-8">
         <h1>Profil
             <?= $_SESSION['username'] ?>
         </h1>

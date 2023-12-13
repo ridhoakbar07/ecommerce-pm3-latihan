@@ -43,13 +43,21 @@ class ApiController
     {
         echo json_encode($this->kategoriModel->findById($id));
     }
+
     public function getProduks()
     {
-        echo json_encode($this->produkModel->getAllProduks());
+        echo json_encode($this->produkModel->findProduksKategori());
     }
+
     public function getProdukById($id)
     {
         echo json_encode($this->produkModel->findById($id));
+    }
+
+    public function getProdukByName($keyword)
+    {
+        $result = $this->produkModel->findByNamaProduk($keyword);
+        echo json_encode($result);
     }
 
 }

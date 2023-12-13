@@ -28,6 +28,7 @@ class Routes {
             '/dashboard/produk/save' => 'ProdukController@save',
             '/dashboard/produk/update' => 'ProdukController@update',
             '/dashboard/produk/delete/(\d+)' => 'ProdukController@delete',
+            '/dashboard/produk/cari' => 'ProdukController@getProduksByName',
 
             //route untuk API disini
             '/api/users' => 'ApiController@getUsers',
@@ -36,6 +37,7 @@ class Routes {
             '/api/kategori/(\d+)' => 'ApiController@getKategoriById',
             '/api/produks' => 'ApiController@getProduks',
             '/api/produk/(\d+)' => 'ApiController@getProdukById',
+            '/api/produk/cari/(.*)' => 'ApiController@getProdukByName',
         ];
     }
 }
