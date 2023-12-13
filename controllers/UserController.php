@@ -33,7 +33,7 @@ class UserController
             // Handle exceptions thrown from UserModel's save method
             $message = [
                 'tipe' => 'error',
-                'pesan' => $result,
+                'pesan' => $result->errorInfo['2'],
             ];
         }
 

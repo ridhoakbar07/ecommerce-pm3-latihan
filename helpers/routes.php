@@ -31,9 +31,11 @@ class Routes {
 
             //route untuk API disini
             '/api/users' => 'ApiController@getUsers',
+            '/api/user/(\d+)' => 'ApiController@getUserById',
             '/api/kategoris' => 'ApiController@getKategoris',
-            '/api/produks' => 'ApiController@getProduks',
             '/api/kategori/(\d+)' => 'ApiController@getKategoriById',
+            '/api/produks' => 'ApiController@getProduks',
+            '/api/produk/(\d+)' => 'ApiController@getProdukById',
         ];
     }
 }

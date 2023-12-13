@@ -29,6 +29,11 @@ class ApiController
         echo json_encode($this->userModel->findAll());
     }
 
+    public function getUserById($id)
+    {
+        echo json_encode($this->userModel->findById($id));
+    }
+
     public function getKategoris()
     {
         echo json_encode($this->kategoriModel->findAll());
@@ -40,7 +45,11 @@ class ApiController
     }
     public function getProduks()
     {
-        echo json_encode($this->produkModel->findAll());
+        echo json_encode($this->produkModel->getAllProduks());
+    }
+    public function getProdukById($id)
+    {
+        echo json_encode($this->produkModel->findById($id));
     }
 
 }

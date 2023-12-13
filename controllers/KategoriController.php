@@ -21,6 +21,7 @@ class KategoriController
     public function save()
     {
         $result = $this->kategoriModel->store($_POST);
+
         if ($result === true) {
             $message = [
                 'tipe' => 'success',
@@ -30,7 +31,7 @@ class KategoriController
             // Handle exceptions thrown from kategoriModel's save method
             $message = [
                 'tipe' => 'error',
-                'pesan' => $result,
+                'pesan' => $result->errorInfo['2'],
             ];
         }
 

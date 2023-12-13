@@ -35,8 +35,8 @@
 
 <div class="container-fluid">
     <div class="float-end m-2">
-        <button type='button' class='btn btn-sm btn-success kategori-add' data-bs-toggle='modal'
-            data-bs-target='#kategoriModal'><i class='bi bi-plus'></i>Tambah Data</button>
+        <button type='button' class='btn btn-sm btn-success' data-bs-toggle='modal' data-bs-target='#kategoriModal'><i
+                class='bi bi-plus'></i>Tambah Data</button>
     </div>
     <div class="table-responsive-sm">
         <table class="table" id="table_kategori">
@@ -59,13 +59,13 @@
             url: '/api/kategoris',
             type: 'GET',
             success: function (response) {
-                const tbody = response.map((item, index) => `
+                const tbody = response.map((kategori, index) => `
                 <tr>
                     <td>${index + 1}</td>
-                    <td>${item.nama_kategori}</td>
+                    <td>${kategori.nama_kategori}</td>
                     <td>
-                        <button type='button' class='btn btn-sm btn-warning kategori-edit' data-bs-toggle='modal' data-bs-target='#kategoriModal' data-bs-id='${item.id}'><i class='bi bi-pencil-square'></i>Edit</button>
-                        <button type='button' class='btn btn-sm btn-danger kategori-delete' data-bs-toggle='modal' data-bs-target='#kategoriModal' data-bs-id='${item.id}'><i class='bi bi-trash'></i>Hapus</a>
+                        <button type='button' class='btn btn-sm btn-warning' data-bs-toggle='modal' data-bs-target='#kategoriModal' data-bs-id='${kategori.id}'><i class='bi bi-pencil-square'></i>Edit</button>
+                        <button type='button' class='btn btn-sm btn-danger delete' data-bs-toggle='modal' data-bs-target='#kategoriModal' data-bs-id='${kategori.id}'><i class='bi bi-trash'></i>Hapus</a>
                     </td>
                 </tr>
                 `).join('');
@@ -86,16 +86,17 @@
             url: '/api/kategori/' + id,
             type: 'GET',
             success: function (response) {
-                let title = button.hasClass('kategori-delete') ? 'Hapus' : response.id ? 'Edit' : 'Tambah';
-                let formAction = button.hasClass('kategori-delete') ? `delete/${response.id}` : response.id ? 'update' : 'save';
+                kategori = response;
+                let title = button.hasClass('delete') ? 'Hapus' : kategori.id ? 'Edit' : 'Tambah';
+                let formAction = button.hasClass('delete') ? `delete/${kategori.id}` : kategori.id ? 'update' : 'save';
                 $('#modal-title').text(title);
 
-                if (button.hasClass('kategori-delete')) {
-                    $('.modal-body').html(`<p>Apakah anda yakin ingin menghapus Kategori : <b class="text-danger">${response.nama_kategori}</b> ini ?</p>`);
+                if (button.hasClass('delete')) {
+                    $('.modal-body').html(`<p>Apakah anda yakin ingin menghapus data : <b class="text-danger">${kategori.nama_kategori}</b> ini ?</p>`);
                 } else {
                     $('.modal-body').html(modalBody);
-                    $('#id').val(response['id'] || '');
-                    $('#nama_kategori').val(response['nama_kategori'] || '');
+                    $('#id').val(kategori.id || '');
+                    $('#nama_kategori').val(kategori.nama_kategori || '');
                 }
 
                 $('form').attr('action', "/dashboard/<?= $page ?>/" + formAction);

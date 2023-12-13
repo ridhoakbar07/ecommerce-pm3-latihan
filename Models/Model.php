@@ -28,7 +28,7 @@ class Model implements CrudInterface
             $stmt->execute($data);
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return $e;
         }
     }
 
@@ -81,6 +81,10 @@ class Model implements CrudInterface
         $query = "SELECT * FROM {$this->table}";
         $stmt = $this->conn->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getConn(){
+        return $this->conn;
     }
 }
 ?>
