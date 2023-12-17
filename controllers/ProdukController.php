@@ -27,17 +27,13 @@ class ProdukController
                 'pesan' => 'Kesalahan : Ukuran Foto Maksimal 300kb',
             ];
         } else {
-            $result = $this->produkModel->store($_POST);
+            $result = $this->produkModel->storeWithFoto($foto);
 
             if ($result === true) {
                 $message = [
                     'tipe' => 'success',
                     'pesan' => 'Data berhasil disimpan!',
                 ];
-
-                if ($foto) {
-                    $this->produkModel->uploadfoto($_POST['id'], $foto);
-                }
             } else {
                 $message = [
                     'tipe' => 'error',
@@ -60,17 +56,13 @@ class ProdukController
                 'pesan' => 'Kesalahan : Ukuran Foto Maksimal 300kb',
             ];
         } else {
-            $result = $this->produkModel->edit($_POST);
+            $result = $this->produkModel->editWithFoto($foto);
 
-            if ($result === true) {
+            if ($result === true) { 
                 $message = [
                     'tipe' => 'success',
                     'pesan' => 'Data berhasil diubah!',
                 ];
-
-                if ($foto) {
-                    $this->produkModel->uploadfoto($_POST['id'], $foto);
-                }
             } else {
                 $message = [
                     'tipe' => 'error',

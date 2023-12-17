@@ -10,6 +10,41 @@ class Produk extends Model
         $this->table = 'produk';
     }
 
+    public function storeWithFoto($foto)
+    {
+        try {
+            $this->getConn()->beginTransaction();
+            $result = $this->store($_POST);
+            if (!empty($foto['tmp_name'])) {
+                $result = $this->uploadfoto($this->getConn()->lastInsertId(), $foto);
+            }
+            $this->getConn()->commit();
+
+            return $result;
+        } catch (PDOException $e) {
+            $this->getConn()->rollBack();
+            return false;
+        }
+
+    }
+
+    public function editWithFoto($foto)
+    {
+        try {
+            $this->getConn()->beginTransaction();
+            $result = $this->edit($_POST);
+            if (!empty($foto['tmp_name'])) {
+                $result = $this->uploadfoto($_POST['id'], $foto);
+            }
+            $this->getConn()->commit();
+
+            return $result;
+        } catch (PDOException $e) {
+            $this->getConn()->rollBack();
+            return false;
+        }
+
+    }
     public function uploadfoto($id, $foto)
     {
         $fotoData = file_get_contents($foto['tmp_name']);
@@ -24,7 +59,7 @@ class Produk extends Model
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return $e;
         }
     }
 

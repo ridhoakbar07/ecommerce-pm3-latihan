@@ -20,7 +20,7 @@ class HomeController
         } else {
             $kategoris = $this->kategoriModel->findAll();
             $produks = $this->produkModel->findAll();
-            view("public/index", ['kategoris' => $kategoris, 'produks' => $produks]);
+            view("public/index", ['kategoris' => $kategoris, 'produks' => $produks, 'page' => 'content']);
         }
     }
 
