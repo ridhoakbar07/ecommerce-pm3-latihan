@@ -1,7 +1,7 @@
 <header>
     <nav class='navbar navbar-expand-lg bg-body-tertiary'>
         <div class='container'>
-            <a class='navbar-brand' href='#'>
+            <a class='navbar-brand' href='/'>
                 <img src='assets/images/logo/bootstrap-logo.svg' alt='Logo' width='30' height='24'
                     class='d-inline-block align-text-top'></a>
             <form class='d-flex me-auto' role='search'>
@@ -17,19 +17,6 @@
                 <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
                     <li class='nav-item'>
                         <a class='nav-link' aria-current='page' href='#'>Produk Kami</a>
-                    </li>
-                    <li class='nav-item dropdown'>
-                        <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown'
-                            aria-expanded='false'>
-                            Kategori Produk
-                        </a>
-                        <ul class='dropdown-menu'>
-                            <?php foreach ($kategoris as $kategori) { ?>
-                                <li><a class='dropdown-item' href='#'>
-                                        <?= $kategori['nama_kategori'] ?>
-                                    </a></li>
-                            <?php } ?>
-                        </ul>
                     </li>
                     <li class='nav-item'>
                         <a class='nav-link' aria-current='page' href='#'>Tentang Kami</a>

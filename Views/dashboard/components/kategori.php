@@ -48,32 +48,29 @@
                 </tr>
             </thead>
             <tbody>
+                <?php foreach ($kategoris as $index => $kategori) { ?>
+                    <tr>
+                        <td>
+                            <?= $index + 1 ?>
+                        </td>
+                        <td>
+                            <?= $kategori['nama_kategori'] ?>
+                        </td>
+                        <td>
+                            <button type='button' class='btn btn-sm btn-warning' data-bs-toggle='modal'
+                                data-bs-target='#kategoriModal' data-bs-id='<?= $kategori['id'] ?>'><i
+                                    class='bi bi-pencil-square'></i>Edit</button>
+                            <button type='button' class='btn btn-sm btn-danger delete' data-bs-toggle='modal'
+                                data-bs-target='#kategoriModal' data-bs-id='<?= $kategori['id'] ?>'><i
+                                    class='bi bi-trash'></i>Hapus</a>
+                        </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-        //saat dokumen ready, tambahkan data dari kategori ke <tbody> /tabel body
-        $.ajax({
-            url: '/api/kategoris',
-            type: 'GET',
-            success: function (response) {
-                const tbody = response.map((kategori, index) => `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${kategori.nama_kategori}</td>
-                    <td>
-                        <button type='button' class='btn btn-sm btn-warning' data-bs-toggle='modal' data-bs-target='#kategoriModal' data-bs-id='${kategori.id}'><i class='bi bi-pencil-square'></i>Edit</button>
-                        <button type='button' class='btn btn-sm btn-danger delete' data-bs-toggle='modal' data-bs-target='#kategoriModal' data-bs-id='${kategori.id}'><i class='bi bi-trash'></i>Hapus</a>
-                    </td>
-                </tr>
-                `).join('');
-                $('#table_kategori tbody').append(tbody);
-            }
-        });
-    });
-
     const modalBody = $('.modal-body').html();
 
     //saat kategoriModal muncul

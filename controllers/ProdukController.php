@@ -14,7 +14,12 @@ class ProdukController
 
     public function index()
     {
-        view('dashboard/index', ['page' => 'produk']);
+        if (isset($_GET['cari']) && $_GET['cari']) {
+            $produks = $this->produkModel->findByNamaProduk($_GET['cari']);
+        } else {
+            $produks = $this->produkModel->findProduksKategori();
+        }
+        view('dashboard/index', ['page' => 'produk', 'produks' => $produks]);
     }
 
     public function save()
@@ -58,7 +63,7 @@ class ProdukController
         } else {
             $result = $this->produkModel->editWithFoto($foto);
 
-            if ($result === true) { 
+            if ($result === true) {
                 $message = [
                     'tipe' => 'success',
                     'pesan' => 'Data berhasil diubah!',

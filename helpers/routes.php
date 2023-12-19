@@ -4,11 +4,13 @@ class Routes {
         return [
             '/' => 'HomeController@index',
             '/profile' => 'HomeController@profile',
-            '/login' => 'AuthController@loginForm',
+            '/404' => 'HomeController@notFound',
+            '/403' => 'HomeController@forbidden',
+            '/login' => 'HomeController@login',
+            '/register' => 'HomeController@register',
             '/logout' => 'AuthController@logout',
             '/verifylogin' => 'AuthController@verifyLogin',
             '/registerUser' => 'AuthController@registerUser',
-            '/register' => 'AuthController@registrationForm',
             '/dashboard' => 'DashboardController@index',
             
             //Dashboard User
@@ -28,7 +30,6 @@ class Routes {
             '/dashboard/produk/save' => 'ProdukController@save',
             '/dashboard/produk/update' => 'ProdukController@update',
             '/dashboard/produk/delete/(\d+)' => 'ProdukController@delete',
-            '/dashboard/produk/cari' => 'ProdukController@getProduksByName',
 
             //route untuk API disini
             '/api/users' => 'ApiController@getUsers',
@@ -37,7 +38,6 @@ class Routes {
             '/api/kategori/(\d+)' => 'ApiController@getKategoriById',
             '/api/produks' => 'ApiController@getProduks',
             '/api/produk/(\d+)' => 'ApiController@getProdukById',
-            '/api/produk/cari/(.*)' => 'ApiController@getProdukByName',
         ];
     }
 }

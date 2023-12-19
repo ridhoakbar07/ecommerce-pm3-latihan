@@ -16,7 +16,7 @@ if (isset($_SESSION['flash_message'])) {
 //tampilkan pesan jika, pesan tidak kosong
 if (!empty($messageText)) {
   echo "<div
-  class='toast w-auto p-0 bg-$alertType text-bg-$alertType border-1 position-absolute top-10 start-50 translate-middle z-1'
+  class='toast w-auto p-0 bg-$alertType text-bg-$alertType border-1 position-fixed top-10 start-50 translate-middle z-1'
   role='alert' aria-live='assertive' aria-atomic='true' data-animation='true' data-autohide='true' data-delay='200'>
   <div class='d-flex'>
     <div class='toast-body'>

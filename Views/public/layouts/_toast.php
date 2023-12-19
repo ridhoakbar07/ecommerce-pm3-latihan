@@ -2,9 +2,6 @@
 $alertType = '';
 $messageText = '';
 
-//cek jika terdapat flash_message hasil AuthController->verifyLogin memiliki nilai
-//maka jenis dan pesan alert/peringatan diset nilai tersebut
-//sebaliknya ambil jenis pesan dari variabel $data tipe array dari contstructor lainnya
 if (isset($_SESSION['flash_message'])) {
   $flashMessage = $_SESSION['flash_message'];
   unset($_SESSION['flash_message']);
@@ -16,7 +13,7 @@ if (isset($_SESSION['flash_message'])) {
 //tampilkan pesan jika, pesan tidak kosong
 if (!empty($messageText)) {
   echo "<div
-  class='toast w-auto p-0 bg-$alertType text-bg-$alertType border-1 position-absolute top-10 start-50 translate-middle z-1'
+  class='toast w-auto p-0 bg-$alertType text-bg-$alertType border-1 position-fixed top-10 start-50 translate-middle z-1'
   role='alert' aria-live='assertive' aria-atomic='true' data-animation='true' data-autohide='true' data-delay='200'>
   <div class='d-flex'>
     <div class='toast-body'>

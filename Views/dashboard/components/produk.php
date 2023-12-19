@@ -70,11 +70,11 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
         <button type='button' class='btn btn-sm btn-success mb-2' data-bs-toggle='modal'
             data-bs-target='#produkModal'><i class='bi bi-plus'></i>Tambah Data</button>
-        <form id="formCari">
+        <form method="GET">
             <div class="input-group input-group-sm mb-2">
                 <input type="text" class="form-control border border-primary" placeholder="Masukkan Nama Produk"
-                    aria-label="Nama Produk" aria-describedby="produk-cari" id="keywordCari">
-                <span class="input-group-text border border-primary">Cari</span>
+                    aria-label="Nama Produk" aria-describedby="produk-cari" id="keywordCari" name="cari">
+                <button class="btn btn-primary" type="submit" id="button-addon2"><i class="bi bi-search"></i></button>
             </div>
         </form>
     </div>
@@ -93,53 +93,43 @@
                 </tr>
             </thead>
             <tbody>
+                <?php foreach ($produks as $index => $produk) { ?>
+                    <tr>
+                        <td>
+                            <?= $index + 1 ?>
+                        </td>
+                        <td>
+                            <?= $produk['nama_produk'] ?>
+                        </td>
+                        <td>
+                            <?= $produk['deskripsi'] ?>
+                        </td>
+                        <td>
+                            <?= $produk['harga'] ?>
+                        </td>
+                        <td>
+                            <?= $produk['stock'] ?>
+                        </td>
+                        <td><img src="<?= $produk['foto'] ?>" alt="No_Image" width="64" height="64" /></td>
+                        <td>
+                            <?= $produk['nama_kategori'] ?>
+                        </td>
+                        <td>
+                            <button type='button' class='btn btn-sm btn-warning' data-bs-toggle='modal'
+                                data-bs-target='#produkModal' data-bs-id='<?= $produk['id'] ?>'><i
+                                    class='bi bi-pencil-square'></i>Edit</button>
+                            <button type='button' class='btn btn-sm btn-danger delete' data-bs-toggle='modal'
+                                data-bs-target='#produkModal' data-bs-id='<?= $produk['id'] ?>'><i
+                                    class='bi bi-trash'></i>Hapus</a>
+                        </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
 </div>
+
 <script>
-    //saat dokumen ready, tambahkan data dari produk ke <tbody> /tabel body
-    $(document).ready(() => {
-        const setTabelData = (url = null) => {
-            $.ajax({
-                url: url ? url : '/api/produks',
-                type: 'GET',
-                success: function (response) {
-                    const tbody = response.map((produk, index) => `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${produk.nama_produk}</td>
-                            <td>${produk.deskripsi}</td>
-                            <td>${produk.harga}</td>
-                            <td>${produk.stock}</td>
-                            <td><img src="${produk.foto}" alt="No_Image" width="64" height="64"/></td>
-                            <td>${produk.nama_kategori}</td>
-                            <td>
-                                <button type='button' class='btn btn-sm btn-warning' data-bs-toggle='modal' data-bs-target='#produkModal' data-bs-id='${produk.id}'><i class='bi bi-pencil-square'></i>Edit</button>
-                                <button type='button' class='btn btn-sm btn-danger delete' data-bs-toggle='modal' data-bs-target='#produkModal' data-bs-id='${produk.id}'><i class='bi bi-trash'></i>Hapus</a>
-                            </td>
-                        </tr>
-                    `).join('');
-                    $('#table_produk tbody').append(tbody);
-                }
-            });
-        }
-
-        //init tabel data untuk pertama kali dokumen di load
-        setTabelData();
-
-        // ini javascript bagian form cari jika disubmit
-        $('#formCari').submit((event) => {
-            event.preventDefault();
-            const keywordCari = $('#keywordCari').val();
-            const url = `/api/produk/cari/${keywordCari}`;
-            //kosongkan tabel 
-            $('#table_produk tbody').html('');
-            setTabelData(url);
-        });
-
-    });
-
     //ini javascript bagian modal
     const modalBody = $('.modal-body').html();
 

@@ -13,7 +13,8 @@ class KategoriController
 
     public function index()
     {
-        view('dashboard/index', ['page' => 'kategori']);
+        $kategoris = $this->kategoriModel->findAll();
+        view('dashboard/index', ['page' => 'kategori', 'kategoris' => $kategoris]);
     }
 
     public function save()

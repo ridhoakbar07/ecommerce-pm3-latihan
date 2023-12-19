@@ -40,7 +40,7 @@ function run(string $url, array $routes): void {
     }
 
     if (!$matchedRoute) {
-        view("404");
+        header("location: /404");
     }
 }
 

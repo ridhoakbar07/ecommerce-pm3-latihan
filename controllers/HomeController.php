@@ -16,7 +16,7 @@ class HomeController
     public function index()
     {
         if (isset($_SESSION['role_user']) && $_SESSION['role_user'] === 1) {
-            view("dashboard/index");
+            header('Location: /dashboard');
         } else {
             $kategoris = $this->kategoriModel->findAll();
             $produks = $this->produkModel->findAll();
@@ -27,6 +27,35 @@ class HomeController
     public function profile()
     {
         view("public/profile");
+    }
+
+    public function notFound()
+    {
+        if (isset($_SESSION['role_user']) && $_SESSION['role_user'] === 1) {
+            view("dashboard/index");
+        } else {
+            view("public/index");
+        }
+    }
+    public function forbidden()
+    {
+        view("public/index", ['page' => '403']);
+    }
+    public function login()
+    {
+        if (isset($_SESSION['role_user'])) {
+            header('location: /');
+        } else {
+            view("public/index", ['page' => 'login']);
+        }
+    }
+    public function register()
+    {
+        if (isset($_SESSION['role_user'])) {
+            header('location: /');
+        } else {
+            view("public/index", ['page' => 'register']);
+        }
     }
 }
 ?>

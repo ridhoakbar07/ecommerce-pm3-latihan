@@ -13,7 +13,8 @@ class UserController
 
     public function index()
     {
-        view('dashboard/index', ['page' => 'user']);
+        $users = $this->userModel->findAll();
+        view('dashboard/index', ['page' => 'user', 'users' => $users]);
     }
     public function save()
     {

@@ -77,34 +77,35 @@
                 </tr>
             </thead>
             <tbody>
+                <?php foreach ($users as $index => $user) { ?>
+                    <tr>
+                        <td>
+                            <?= $index + 1 ?>
+                        </td>
+                        <td>
+                            <?= $user['username'] ?>
+                        </td>
+                        <td>
+                            <?= $user['email'] ?>
+                        </td>
+                        <td>
+                            <?= $user['role'] == 1 ? 'admin' : 'user' ?>
+                        </td>
+                        <td>
+                            <button type='button' class='btn btn-sm btn-warning ' data-bs-toggle='modal'
+                                data-bs-target='#userModal' data-bs-id='<?= $user['id'] ?>'><i
+                                    class='bi bi-pencil-square'></i>Edit</button>
+                            <button type='button' class='btn btn-sm btn-danger delete' data-bs-toggle='modal'
+                                data-bs-target='#userModal' data-bs-id='<?= $user['id'] ?>'><i
+                                    class='bi bi-trash'></i>Hapus</a>
+                        </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-        //saat dokumen ready, tambahkan data dari user ke <tbody> /tabel body
-        $.ajax({
-            url: '/api/users',
-            type: 'GET',
-            success: function (response) {
-                const tbody = response.map((user, index) => `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${user.username}</td>
-                <td>${user.email}</td>
-                <td>${user.role == 1 ? "admin" : "user"}</td>
-                <td>
-                    <button type='button' class='btn btn-sm btn-warning ' data-bs-toggle='modal' data-bs-target='#userModal' data-bs-id='${user.id}'><i class='bi bi-pencil-square'></i>Edit</button>
-                    <button type='button' class='btn btn-sm btn-danger delete' data-bs-toggle='modal' data-bs-target='#userModal' data-bs-id='${user.id}'><i class='bi bi-trash'></i>Hapus</a>
-                </td>
-            </tr>
-        `).join('');
-                $('#table_user tbody').append(tbody);
-            }
-        });
-    });
-
     const modalBody = $('.modal-body').html();
 
     //saat userModal muncul
