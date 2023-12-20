@@ -1,13 +1,12 @@
 <div class="bd-example m-0 border-0 bg-light" data-bs-ride="carousel" data-bs-theme="dark">
     <div id="carouselExampleCaptions" class="carousel slide">
         <div class="carousel-indicators">
-            <?php foreach ($produks as $produk) {
-                if ($produk['diskon'] > 0) {
-                    $i = 0; ?>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<?= $i ?>"
-                        class="<?= $i == 0 ? 'active' : '' ?>" aria-label="Slide <?= $i ?>" aria-current="true"></button>
-                    <?php $i++;
-                }
+            <?php foreach ($produks as $index => $produk) {
+                if ($produk['diskon'] > 0) { ?>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<?= $index ?>"
+                        class="<?= $index == 0 ? 'active' : '' ?>" aria-label="Slide <?= $index + 1 ?>"
+                        aria-current="true"></button>
+                <?php }
             } ?>
         </div>
         <div class="carousel-inner">
@@ -102,8 +101,7 @@
                     </p>
                 </div>
                 <div class="card-footer text-end">
-                    <a href="/wishlist/add" type='button' class="link-danger link-underline-opacity-0 stretched-link"
-                        style="position: relative;"><i class="bi bi-heart-fill"></i>
+                    <a href="/wishlist/add" type='button' class="link-danger link-underline-opacity-0 stretched-link" style="position: relative;"><i class="bi bi-heart-fill"></i>
                     </a>
                 </div>
             </div>
