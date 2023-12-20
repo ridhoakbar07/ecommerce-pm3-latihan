@@ -1,5 +1,5 @@
 <div class="form-signin w-100 pt-5 mt-5 m-auto vh-100">
-    <form action="/verifylogin" method="POST">
+    <form action="/verifylogin" method="POST" class="needs-validation">
         <img class="mb-4" src="assets/images/logo/bootstrap-logo.svg" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
         <div class="form-floating">

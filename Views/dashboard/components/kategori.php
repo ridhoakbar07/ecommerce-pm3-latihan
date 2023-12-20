@@ -17,6 +17,13 @@
                                 placeholder="Nama Kategori">
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <label for="bs_icon" class="col-sm-4 col-form-label">Bootstrap Icon</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="bs_icon" name="bs_icon"
+                                placeholder="ie : bi-cart">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <div class="float-end">
@@ -44,6 +51,7 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Nama Kategori</th>
+                    <th scope="col">Icon</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -55,6 +63,9 @@
                         </td>
                         <td>
                             <?= $kategori['nama_kategori'] ?>
+                        </td>
+                        <td>
+                        <i class="bi <?= $kategori['bs_icon'] ?>"></i>
                         </td>
                         <td>
                             <button type='button' class='btn btn-sm btn-warning' data-bs-toggle='modal'
@@ -94,6 +105,7 @@
                     $('.modal-body').html(modalBody);
                     $('#id').val(kategori.id || '');
                     $('#nama_kategori').val(kategori.nama_kategori || '');
+                    $('#bs_icon').val(kategori.bs_icon || '');
                 }
 
                 $('form').attr('action', "/dashboard/<?= $page ?>/" + formAction);

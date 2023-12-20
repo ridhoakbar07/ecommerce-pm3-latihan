@@ -79,5 +79,15 @@ class Produk extends Model
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    public function findByNamaKategori($keyword)
+    {
+        $query = "SELECT p.*, k.nama_kategori FROM Produk p JOIN Kategori k ON p.kategori_id = k.id WHERE k.nama_kategori LIKE :keyword";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(':keyword', '%' . $keyword . '%');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

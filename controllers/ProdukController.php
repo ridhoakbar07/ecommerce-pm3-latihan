@@ -16,7 +16,7 @@ class ProdukController
     {
         if (isset($_GET['cari']) && $_GET['cari']) {
             $produks = $this->produkModel->findByNamaProduk($_GET['cari']);
-        } else {
+        } else if (isset($_GET['cari']) && $_GET['cari']) {
             $produks = $this->produkModel->findProduksKategori();
         }
         view('dashboard/index', ['page' => 'produk', 'produks' => $produks]);

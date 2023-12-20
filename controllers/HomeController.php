@@ -19,7 +19,15 @@ class HomeController
             header('Location: /dashboard');
         } else {
             $kategoris = $this->kategoriModel->findAll();
-            $produks = $this->produkModel->findAll();
+            $produks = $this->produkModel->findProduksKategori();
+
+            if (isset($_GET['cari']) && $_GET['cari']) {
+                $produks = $this->produkModel->findByNamaProduk($_GET['cari']);
+            }
+
+            if (isset($_GET['kategori']) && $_GET['kategori']) {
+                $produks = $this->produkModel->findByNamaKategori($_GET['kategori']);
+            }
             view("public/index", ['kategoris' => $kategoris, 'produks' => $produks, 'page' => 'content']);
         }
     }
