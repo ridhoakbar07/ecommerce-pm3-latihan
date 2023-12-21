@@ -14,10 +14,9 @@ class ProdukController
 
     public function index()
     {
+        $produks = $this->produkModel->findProduksKategori();
         if (isset($_GET['cari']) && $_GET['cari']) {
             $produks = $this->produkModel->findByNamaProduk($_GET['cari']);
-        } else if (isset($_GET['cari']) && $_GET['cari']) {
-            $produks = $this->produkModel->findProduksKategori();
         }
         view('dashboard/index', ['page' => 'produk', 'produks' => $produks]);
     }

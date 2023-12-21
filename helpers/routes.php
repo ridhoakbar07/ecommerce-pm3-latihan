@@ -1,6 +1,8 @@
 <?php
-class Routes {
-    public static function getRoutes(): array {
+class Routes
+{
+    public static function getRoutes(): array
+    {
         return [
             '/' => 'HomeController@index',
             '/profile' => 'HomeController@profile',
@@ -12,7 +14,12 @@ class Routes {
             '/verifylogin' => 'AuthController@verifyLogin',
             '/registerUser' => 'AuthController@registerUser',
             '/dashboard' => 'DashboardController@index',
-            
+
+            //Wishlist User
+            '/wishlist' => 'WishlistController@index',
+            '/addwish' => 'WishlistController@save',
+            '/removewish/(\d+)' => 'WishlistController@delete',
+
             //Dashboard User
             '/dashboard/users' => 'UserController@index',
             '/dashboard/user/save' => 'UserController@save',

@@ -18,22 +18,22 @@
                     <li class='nav-item'>
                         <a class='nav-link' aria-current='page' href='#'>Tentang Kami</a>
                     </li>
-                </ul>
-                <ul class='navbar-nav'>
                     <li class='nav-item'>
                         <a class='nav-link' aria-current='page' role='button' href='' data-bs-toggle='tooltip'
                             data-bs-placement='bottom' data-bs-title='Keranjang Saya'><i class="bi bi-cart"
                                 style="font-size:18px"></i>
-                            <span class='d-lg-none'>Cart</span>
+                            Cart
                         </a>
                     </li>
                     <li class='nav-item'>
-                        <a class='nav-link' aria-current='page' role='button' href='/wishlists' data-bs-toggle='tooltip'
+                        <a class='nav-link' aria-current='page' role='button' href='/wishlist' data-bs-toggle='tooltip'
                             data-bs-placement='bottom' data-bs-title='Favorite Saya'><i class="bi bi-bag-heart"
                                 style="font-size:18px"></i>
-                            <span class='d-lg-none'>Favorite</span>
+                            Wishlist
                         </a>
                     </li>
+                </ul>
+                <ul class='navbar-nav'>
                     <li class='nav-item'>
                         <?php
                         if (!isset($_SESSION['role_user'])) {

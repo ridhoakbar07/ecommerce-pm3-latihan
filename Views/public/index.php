@@ -34,8 +34,7 @@
           'login' => 'components/login.php',
           'register' => 'components/register.php',
           'content' => 'components/content.php',
-          'kategori' => 'components/kategori.php',
-          'user' => 'components/user.php',
+          'wishlist' => 'components/wishlist.php',
           '403' => '403.php',
         ];
 
