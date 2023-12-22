@@ -4,8 +4,8 @@
             <a class='navbar-brand' href='/'>
                 <img src='assets/images/logo/bootstrap-logo.svg' alt='Logo' width='30' height='24'
                     class='d-inline-block align-text-top'></a>
-            <form class='d-flex me-auto' role='search'>
-                <input type='search' class='form-control search-hover' name='' placeholder='Search here...'
+            <form class='d-flex me-auto' role='search' method="GET">
+                <input type='search' class='form-control search-hover' name='cari' placeholder='Search here...'
                     aria-label='Search' data-bs-toggle='tooltip' data-bs-placement='bottom'
                     data-bs-title='Cari Produk disini' />
             </form>
